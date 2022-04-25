@@ -40,6 +40,8 @@ describe('profile', () => {
     expect(profileLikes.children.length).toEqual(likes.length);
     expect(profileHeader).toBeInTheDocument();
     expect(avatar).toBeInTheDocument();
+    expect(profileMotto).toBeInTheDocument();
+    expect(interests).toBeInTheDocument();
 
-  })
+  });
 })
