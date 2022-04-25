@@ -16,13 +16,20 @@ const user = {
 
 describe('profile', () => {
 
-  it('Should render the user profile', () => {
+  it('Should render the user profile', async () => {
 
     render(
       <MemoryRouter>
         <Home user={user} />
       </MemoryRouter>
-    )
+    );
+
+    const { name, color, likes, motto, header } = user
+
+    const profileName = screen.getByRole('heading', { name });
+    const profileColor = screen.getByText(color);
+    const profileLikes = screen.getByRole('list');
+    const profileHeader = await screen.findByAltText('header')
   
   })
 })
