@@ -1,3 +1,6 @@
+import { screen, render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import Home from './Home';
 
 const user = {
   id: 1,
@@ -10,6 +13,35 @@ const user = {
   color: 'crimson',
 }
 
-test('Should render the user profile', () => {
 
+describe('profile', () => {
+
+  it('Should render the user profile', async () => {
+
+    render(
+      <MemoryRouter>
+        <Home user={user} />
+      </MemoryRouter>
+    );
+
+    const { name, color, likes, motto } = user
+
+    const profileName = screen.getByRole('heading', { name });
+    const profileColor = screen.getByText(color);
+    const profileLikes = screen.getByRole('list');
+    const profileHeader = await screen.findByAltText('header');
+    const avatar = screen.getByAltText('avatar');
+
+    const profileMotto = screen.getByText(motto);
+    const interests = screen.getByRole('heading', { name: /interests/i });
+
+    expect(profileName).toBeInTheDocument();
+    expect(profileColor).toBeInTheDocument();
+    expect(profileLikes.children.length).toEqual(likes.length);
+    expect(profileHeader).toBeInTheDocument();
+    expect(avatar).toBeInTheDocument();
+    expect(profileMotto).toBeInTheDocument();
+    expect(interests).toBeInTheDocument();
+
+  });
 })
